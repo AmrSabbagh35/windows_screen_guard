@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/shield_demo.gif" width="180" alt="windows_screen_guard" />
-</p>
-
 <h1 align="center">windows_screen_guard</h1>
 
 <p align="center">
@@ -27,12 +23,6 @@
 </p>
 
 ---
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/capture_demo.gif" width="600" alt="Protected vs unprotected capture" />
-</p>
-
-<p align="center"><i>Left: what the user sees. Right: what any screen capture tool sees.</i></p>
 
 ---
 
