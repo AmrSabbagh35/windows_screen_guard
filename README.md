@@ -1,50 +1,67 @@
-# windows_screen_guard
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/shield_demo.gif" width="180" alt="windows_screen_guard" />
+</p>
 
-[![pub version](https://img.shields.io/pub/v/windows_screen_guard.svg?style=flat-square&logo=dart&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&logo=open-source-initiative&logoColor=white)](https://github.com/AmrSabbagh35/windows_screen_guard/blob/main/LICENSE)
-[![platform](https://img.shields.io/badge/platform-Windows-0078D4?style=flat-square&logo=windows&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![Win32](https://img.shields.io/badge/Win32-SetWindowDisplayAffinity-0078D4?style=flat-square&logo=microsoft&logoColor=white)](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowdisplayaffinity)
-
-Prevent screen capture and recording on Flutter Windows apps using the Windows display affinity API — the same method used by Netflix, banking apps, and enterprise software.
+<h1 align="center">windows_screen_guard</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/capture_demo.gif" width="580" alt="User sees content, capture tool sees black" />
+  Screen capture prevention for Flutter Windows applications via the Win32 display affinity API.
+</p>
+
+<p align="center">
+  <a href="https://pub.dev/packages/windows_screen_guard">
+    <img src="https://img.shields.io/pub/v/windows_screen_guard.svg?style=flat-square&label=pub&logo=dart&logoColor=white&color=0175C2" alt="pub version" />
+  </a>
+  <a href="https://pub.dev/packages/windows_screen_guard/score">
+    <img src="https://img.shields.io/pub/points/windows_screen_guard?style=flat-square&logo=dart&logoColor=white&color=0175C2" alt="pub points" />
+  </a>
+  <a href="https://github.com/AmrSabbagh35/windows_screen_guard/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT license" />
+  </a>
+  <a href="https://flutter.dev/desktop">
+    <img src="https://img.shields.io/badge/platform-Windows-0078D4?style=flat-square&logo=windows&logoColor=white" alt="Windows" />
+  </a>
+  <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowdisplayaffinity">
+    <img src="https://img.shields.io/badge/Win32-SetWindowDisplayAffinity-0078D4?style=flat-square&logo=microsoft&logoColor=white" alt="Win32 API" />
+  </a>
 </p>
 
 ---
 
-## How it works
-
-Windows exposes a kernel-level API called `SetWindowDisplayAffinity`. When called with the `WDA_MONITOR` flag, it instructs the GPU compositor to exclude your window from any capture pipeline. The result: every capture tool sees your window as **solid black**, while the user's own display is completely unaffected.
-
-Because this happens at the driver level, no user-space screen capture software can bypass it — the same guarantee that lets Netflix play DRM content on Windows desktops.
-
-`windows_screen_guard` wraps this API via Dart FFI using the `win32` package. No platform channels, no C++ to write, no native plugin setup.
-
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/shield_demo.gif" width="240" alt="Shield activation animation" />
+  <img src="https://raw.githubusercontent.com/AmrSabbagh35/windows_screen_guard/main/assets/capture_demo.gif" width="600" alt="Protected vs unprotected capture" />
 </p>
+
+<p align="center"><i>Left: what the user sees. Right: what any screen capture tool sees.</i></p>
+
+---
+
+## Overview
+
+`windows_screen_guard` prevents screen capture and recording on Flutter Windows applications by wrapping the [`SetWindowDisplayAffinity`](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowdisplayaffinity) Win32 API via Dart FFI.
+
+When the `WDA_MONITOR` flag is applied, the Windows GPU compositor excludes your application window from every capture pipeline — PrintScreen, OBS, Xbox Game Bar, Snipping Tool, and any third-party recorder. The user's own display is completely unaffected. Because this operates at the driver level, no user-space software can bypass it. This is the same mechanism used by Netflix, banking applications, and enterprise software on Windows.
+
+No platform channels. No C++ to write. No native plugin setup required.
 
 ---
 
 ## Features
 
-[![shield](https://img.shields.io/badge/Capture_Blocking-WDA__MONITOR-0078D4?style=flat-square&logo=shield&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![keyboard](https://img.shields.io/badge/PrintScreen_Hook-VK__SNAPSHOT-6A0DAD?style=flat-square&logo=keyboard&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![cross-platform](https://img.shields.io/badge/Non--Windows-No--op_Safe-22863a?style=flat-square&logo=flutter&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-
-| Feature | Details |
+| | |
 |---|---|
-| ![shield](https://img.shields.io/badge/-Capture_Blocking-0078D4?style=flat-square&logo=fontawesome&logoColor=white) | Makes your window appear black in all screenshots and recordings |
-| ![keyboard](https://img.shields.io/badge/-PrintScreen_Key_Hook-6A0DAD?style=flat-square&logo=fontawesome&logoColor=white) | Swallows `VK_SNAPSHOT` at the OS level via `SetWindowsHookEx` |
-| ![bolt](https://img.shields.io/badge/-Zero_Config-F0A500?style=flat-square&logo=fontawesome&logoColor=white) | Two lines of code to protect your entire app |
-| ![unlock](https://img.shields.io/badge/-No_Admin_Rights-22863a?style=flat-square&logo=fontawesome&logoColor=white) | `SetWindowDisplayAffinity` works without elevated privileges |
-| ![globe](https://img.shields.io/badge/-Cross_Platform_Safe-555?style=flat-square&logo=flutter&logoColor=white) | Silent no-op on macOS, Linux, Android, and iOS |
-| ![info](https://img.shields.io/badge/-Result_Reporting-c0392b?style=flat-square&logo=fontawesome&logoColor=white) | Returns `ScreenGuardResult` with Win32 error code on failure |
+| **Capture blocking** | Applies `WDA_MONITOR` via `SetWindowDisplayAffinity` — window appears black in all capture tools |
+| **PrintScreen key hook** | Installs a `WH_KEYBOARD_LL` hook to intercept `VK_SNAPSHOT` at the OS level |
+| **No admin rights required** | `SetWindowDisplayAffinity` works for any process on its own windows |
+| **Non-Windows safe** | All methods are silent no-ops on macOS, Linux, Android, and iOS |
+| **Error reporting** | Returns `ScreenGuardResult` with the Win32 error code on failure |
+| **Minimal footprint** | Two dependencies — `ffi` and `win32` |
 
 ---
 
 ## Installation
+
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -57,41 +74,33 @@ flutter pub get
 
 ---
 
-## Quick start
+## Usage
+
+### Protect on startup
+
+The recommended approach is to enable protection before the widget tree renders:
 
 ```dart
 import 'package:windows_screen_guard/windows_screen_guard.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Block all screen capture before the app renders.
   WindowsScreenGuard.protect();
-
-  // Optionally also block the PrintScreen key.
-  WindowsScreenGuard.blockPrintScreen();
-
   runApp(const MyApp());
 }
 ```
 
----
-
-## Usage
-
-### Enable protection
+### Check the result
 
 ```dart
 final result = WindowsScreenGuard.protect();
 
-if (result.success) {
-  debugPrint('Screen capture is now blocked.');
-} else {
-  debugPrint('Failed — Win32 error code: ${result.errorCode}');
+if (!result.success) {
+  debugPrint('Protection failed. Win32 error: ${result.errorCode}');
 }
 ```
 
-### Disable protection
+### Remove protection
 
 ```dart
 WindowsScreenGuard.unprotect();
@@ -100,22 +109,25 @@ WindowsScreenGuard.unprotect();
 ### Block the PrintScreen key
 
 ```dart
-// Install a low-level keyboard hook that swallows VK_SNAPSHOT.
-final hooked = WindowsScreenGuard.blockPrintScreen();
+WindowsScreenGuard.blockPrintScreen();
 
-// Check state at any time.
-print(WindowsScreenGuard.isPrintScreenBlocked); // true
+// Query state
+WindowsScreenGuard.isPrintScreenBlocked; // true
 
-// Remove the hook when no longer needed.
+// Remove when no longer needed
 WindowsScreenGuard.unblockPrintScreen();
 ```
 
-### Toggle protection per screen
+### Protect specific screens only
 
-Protect only sensitive screens rather than the entire app:
+Apply and remove protection scoped to individual routes:
 
 ```dart
-class SecureScreen extends StatefulWidget { ... }
+class SecureScreen extends StatefulWidget {
+  const SecureScreen({super.key});
+  @override
+  State<SecureScreen> createState() => _SecureScreenState();
+}
 
 class _SecureScreenState extends State<SecureScreen> {
   @override
@@ -131,93 +143,105 @@ class _SecureScreenState extends State<SecureScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => const SensitiveContentWidget();
+  Widget build(BuildContext context) {
+    return const SensitiveContentWidget();
+  }
 }
 ```
 
 ---
 
-## What gets blocked
+## Coverage
+
+The table below shows what each method blocks:
 
 | Capture method | `protect()` | `blockPrintScreen()` |
 |---|:---:|:---:|
-| PrintScreen key | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) |
-| `Win + PrintScreen` | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![no](https://img.shields.io/badge/-No-c0392b?style=flat-square) |
-| `Win + Shift + S` (Snipping Tool) | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![no](https://img.shields.io/badge/-No-c0392b?style=flat-square) |
-| `Win + G` (Xbox Game Bar) | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![no](https://img.shields.io/badge/-No-c0392b?style=flat-square) |
-| OBS / third-party recorders | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![no](https://img.shields.io/badge/-No-c0392b?style=flat-square) |
-| Remote desktop capture | ![yes](https://img.shields.io/badge/-Yes-22863a?style=flat-square) | ![no](https://img.shields.io/badge/-No-c0392b?style=flat-square) |
+| PrintScreen key | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) |
+| Win + PrintScreen | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
+| Win + Shift + S (Snipping Tool) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
+| Win + G (Xbox Game Bar) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
+| OBS and third-party recorders | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
+| Remote desktop capture | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
 
-> `protect()` is the primary defence. `blockPrintScreen()` is an additional layer for the physical key only.
+`protect()` is the primary and comprehensive defence. `blockPrintScreen()` is a supplementary layer that targets the physical key only and should always be used alongside `protect()`.
 
 ---
 
-## API reference
+## API Reference
 
 ### `WindowsScreenGuard`
 
-| Method / Property | Returns | Description |
+```dart
+abstract final class WindowsScreenGuard
+```
+
+| Member | Type | Description |
 |---|---|---|
 | `protect()` | `ScreenGuardResult` | Applies `WDA_MONITOR` to all windows owned by this process |
-| `unprotect()` | `ScreenGuardResult` | Removes display affinity, restoring normal capture behaviour |
-| `blockPrintScreen()` | `bool` | Installs a `WH_KEYBOARD_LL` hook to swallow `VK_SNAPSHOT` |
+| `unprotect()` | `ScreenGuardResult` | Removes display affinity and restores normal capture behaviour |
+| `blockPrintScreen()` | `bool` | Installs a low-level keyboard hook to intercept `VK_SNAPSHOT` |
 | `unblockPrintScreen()` | `void` | Removes the keyboard hook |
-| `isPrintScreenBlocked` | `bool` | Whether the keyboard hook is currently active |
+| `isPrintScreenBlocked` | `bool` | Returns `true` if the keyboard hook is currently installed |
 
 ### `ScreenGuardResult`
 
+```dart
+class ScreenGuardResult
+```
+
 | Property | Type | Description |
 |---|---|---|
-| `success` | `bool` | `true` if the Win32 call succeeded |
-| `errorCode` | `int?` | Win32 error code when `success` is `false`, otherwise `null` |
+| `success` | `bool` | `true` if the Win32 operation succeeded |
+| `errorCode` | `int?` | The Win32 error code if `success` is `false`; `null` otherwise |
 
 ---
 
-## Caveats
+## Limitations
 
-**PrintScreen key hook limitations**
+**PrintScreen key hook**
+`blockPrintScreen()` intercepts the physical PrintScreen key (`VK_SNAPSHOT`) via `SetWindowsHookEx`. It does not intercept `Win + Shift + S`, `Win + G`, or capture tools that operate independently of the keyboard hook chain. Use `protect()` for comprehensive coverage.
 
-`blockPrintScreen()` blocks the physical PrintScreen key via `SetWindowsHookEx`. It does not block `Win + Shift + S`, `Win + G`, or capture tools that bypass keyboard hooks. Always combine it with `protect()`.
+**Remote Desktop Protocol (RDP)**
+`WDA_MONITOR` operates on the local display compositor. Behaviour within RDP sessions may differ across Windows versions and RDP client implementations.
 
-**Remote desktop**
-
-`WDA_MONITOR` applies to the local display pipeline. Behaviour in RDP sessions may vary depending on the Windows version and RDP client in use.
+**Administrator privileges**
+`protect()` does not require administrator rights. It operates exclusively on windows owned by the calling process.
 
 ---
 
 ## Requirements
 
-[![flutter](https://img.shields.io/badge/Flutter-%3E%3D3.24.0-02569B?style=flat-square&logo=flutter&logoColor=white)](https://flutter.dev)
-[![dart](https://img.shields.io/badge/Dart-%3E%3D3.5.0-0175C2?style=flat-square&logo=dart&logoColor=white)](https://dart.dev)
-[![windows](https://img.shields.io/badge/Windows-Only-0078D4?style=flat-square&logo=windows&logoColor=white)](https://flutter.dev/desktop)
-
 | | |
 |---|---|
+| Dart SDK | `>=3.5.0` |
 | Flutter | `>=3.24.0` |
-| Dart | `>=3.5.0` |
-| Platform | Windows (no-op on all other platforms) |
-| Dependencies | `ffi ^2.1.0`, `win32 ^5.2.0` |
+| Platform | Windows 10 / 11 |
+| Dependencies | [`ffi ^2.1.0`](https://pub.dev/packages/ffi), [`win32 ^5.2.0`](https://pub.dev/packages/win32) |
+
+All methods are no-ops on non-Windows platforms. No conditional imports or platform guards are needed in application code.
 
 ---
 
-## Use cases
+## Use Cases
 
-[![banking](https://img.shields.io/badge/-Banking_&_Fintech-F0A500?style=flat-square&logo=stripe&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![healthcare](https://img.shields.io/badge/-Healthcare-c0392b?style=flat-square&logo=red-cross&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![enterprise](https://img.shields.io/badge/-Enterprise_ERP-0078D4?style=flat-square&logo=microsoft&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
-[![drm](https://img.shields.io/badge/-DRM_&_Media-6A0DAD?style=flat-square&logo=netflix&logoColor=white)](https://pub.dev/packages/windows_screen_guard)
+- **Banking and fintech** — prevent capture of account balances, statements, and transaction history
+- **Healthcare** — protect patient records and clinical data rendered on screen
+- **Enterprise ERP and document management** — prevent unauthorised capture of confidential business data
+- **Legal and compliance** — safeguard contracts, case files, and privileged communications
+- **DRM and licensed media** — prevent screen recording of protected content
+- **Any application handling sensitive data** — add a meaningful security layer with minimal integration effort
 
-- **Banking & fintech** — protect account balances and transaction history
-- **Healthcare** — safeguard patient records displayed on screen
-- **Enterprise ERP** — prevent employees from capturing sensitive business data
-- **Document viewers** — protect confidential PDFs and contracts
-- **DRM / media** — prevent capture of licensed content
-- **Any app handling private data** — add a security layer with two lines of code
+---
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome. Please open an issue on [GitHub](https://github.com/AmrSabbagh35/windows_screen_guard/issues) before submitting a pull request.
 
 ---
 
 ## License
 
-[![MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&logo=open-source-initiative&logoColor=white)](https://github.com/AmrSabbagh35/windows_screen_guard/blob/main/LICENSE)
+Distributed under the MIT License. See [`LICENSE`](https://github.com/AmrSabbagh35/windows_screen_guard/blob/main/LICENSE) for details.
 
-MIT © [Amr Sabbagh](https://github.com/AmrSabbagh35)
+Copyright © 2026 [Amr Sabbagh](https://github.com/AmrSabbagh35)
