@@ -157,12 +157,12 @@ The table below shows what each method blocks:
 
 | Capture method | `protect()` | `blockPrintScreen()` |
 |---|:---:|:---:|
-| PrintScreen key | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) |
-| Win + PrintScreen | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
-| Win + Shift + S (Snipping Tool) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
-| Win + G (Xbox Game Bar) | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
-| OBS and third-party recorders | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
-| Remote desktop capture | ![yes](https://img.shields.io/badge/-Blocked-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-Not_covered-b91c1c?style=flat-square) |
+| PrintScreen key | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) |
+| Win + PrintScreen | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-%E2%9C%95-b91c1c?style=flat-square) |
+| Win + Shift + S (Snipping Tool) | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-%E2%9C%95-b91c1c?style=flat-square) |
+| Win + G (Xbox Game Bar) | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-%E2%9C%95-b91c1c?style=flat-square) |
+| OBS and third-party recorders | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-%E2%9C%95-b91c1c?style=flat-square) |
+| Remote desktop capture | ![yes](https://img.shields.io/badge/-%E2%9C%93-1a7f37?style=flat-square) | ![no](https://img.shields.io/badge/-%E2%9C%95-b91c1c?style=flat-square) |
 
 `protect()` is the primary and comprehensive defence. `blockPrintScreen()` is a supplementary layer that targets the physical key only and should always be used alongside `protect()`.
 
