@@ -1,9 +1,9 @@
 name: windows_screen_guard
 description: Prevent screen capture, recording, and PrintScreen on Flutter Windows apps using the Windows display affinity API — the same method used by Netflix and banking apps.
 version: 0.1.0
-homepage: https://github.com/AmrSabbagh35/windows-screen-guard
-repository: https://github.com/AmrSabbagh35/windows-screen-guard
-issue_tracker: https://github.com/AmrSabbagh35/windows-screen-guard/issues
+homepage: https://github.com/AmrSabbagh35/windows_screen_guard
+repository: https://github.com/AmrSabbagh35/windows_screen_guard
+issue_tracker: https://github.com/AmrSabbagh35/windows_screen_guard/issues
 
 environment:
   sdk: ^3.5.0

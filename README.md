@@ -1,7 +1,7 @@
 # windows_screen_guard
 
 [![pub version](https://img.shields.io/pub/v/windows_screen_guard.svg)](https://pub.dev/packages/windows_screen_guard)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AmrSabbagh35/windows-screen-guard/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AmrSabbagh35/windows_screen_guard/blob/main/LICENSE)
 [![platform](https://img.shields.io/badge/platform-Windows-blue.svg)](https://pub.dev/packages/windows_screen_guard)
 
 Prevent screen capture and recording on Flutter Windows apps using the Windows display affinity API — the same method used by Netflix, banking apps, and enterprise software.
